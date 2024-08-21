@@ -1,6 +1,5 @@
 import { Request, Response, response } from "express"
 import { TiposDocumentos, ConsultasApiReniec } from "../models/datos"
-import { Persona } from "../models/persona"
 import { Op } from 'sequelize';
 import axios from 'axios';
 import { sequelize } from "../db/conexion";
