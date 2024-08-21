@@ -24,12 +24,20 @@ export async function apiReniec (documento:string,tipo_documento:number,sistema:
     success:response.data.statusCode==200?true:false
   }
   
+  // Verificación de la variable de entorno TEST_CLOUD_RUN
+  const isTestEnv = process.env.TEST_CLOUD_RUN || null;
+  
   if(tipo_documento==1){
     data.nombres=response.data.body.preNombres
     data.apellidoPaterno=response.data.body.apePaterno
     data.apellidoMaterno=response.data.body.apeMaterno
     data.fecha_nacimiento=response.data.body.feNacimiento
     data.sexo=response.data.body.sexo.substr(0,1)
+    if (!isTestEnv) {
+      data.nombres += " (Prod)";
+    } else {
+      data.nombres += " - " + isTestEnv;
+    }
   }
   if(tipo_documento==2){
     data.nombres=response.data.body.nombres
